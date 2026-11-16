@@ -259,7 +259,8 @@ def write_dataset(mag_data, dataset_name, process_id, process_version, storage_b
 
 
 def write_webxtile_dataset(
-    ds, dataset_name, process_id, process_version, storage_base, storage_kwargs
+    ds, dataset_name, process_id, process_version, storage_base, storage_kwargs,
+    mime_type="application/x-webxtile",
 ):
     """Write an xarray Dataset to storage as a webxtile tile tree.
 
@@ -273,6 +274,10 @@ def write_webxtile_dataset(
         process_version: Process version number (string or int)
         storage_base: Base URL for the storage backend
         storage_kwargs: fsspec storage arguments
+        mime_type: The webxtile media type to tag this dataset with. The caller
+            knows which kind it writes (equiv-source grid vs 3D susceptibility
+            model); dataset pickers filter on it. Used for both the files-map
+            key and the top-level mime (they must match, as Dataset.url requires).
 
     Returns:
         Dataset ID (UUID string)
@@ -311,13 +316,13 @@ def write_webxtile_dataset(
     # Dataset manifest — root tile is metadata.msgpack per webxtile convention
     root_tile_url = f"{dataset_prefix}/tiles/metadata.msgpack"
     files = {
-        "application/x-webxtile": root_tile_url,
+        mime_type: root_tile_url,
         STATS_MIME: stats_url,
     }
 
     dataset_info = {
         "id": dataset_id,
-        "mime_type": "application/x-webxtile",
+        "mime_type": mime_type,
         "dataset_name": dataset_name,
         "files": files,
         "parts": {},

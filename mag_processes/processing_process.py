@@ -48,6 +48,7 @@ class MagProcessing:
                     "type": "string",
                     "format": "uri",
                     "x-format": "dataset",
+                    "x-target-mediatypes": ["application/x-magdata-msgpack"],
                     "title": "Input Dataset",
                     "description": "Imported or previously processed mag dataset",
                 },

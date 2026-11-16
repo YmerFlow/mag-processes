@@ -84,6 +84,7 @@ class MagInversion3D:
                     "type": "string",
                     "format": "uri",
                     "x-format": "dataset",
+                    "x-target-mediatypes": [["application/x-mag-grid-webxtile"], ["application/x-webxtile"]],
                     "title": "Input Dataset",
                     "description": (
                         "Gridded equivalent-source output dataset "
@@ -165,6 +166,7 @@ class MagInversion3D:
             process_version,
             storage_base,
             storage_kwargs,
+            mime_type="application/x-mag-model-webxtile",
         )
         outputs["mag_3d_model"] = (
             f"{storage_base}/processes/{process_id}/{process_version}"

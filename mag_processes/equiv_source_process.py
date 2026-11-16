@@ -72,6 +72,7 @@ class MagEquivSource:
                     "type": "string",
                     "format": "uri",
                     "x-format": "dataset",
+                    "x-target-mediatypes": ["application/x-magdata-msgpack"],
                     "title": "Input Dataset",
                     "description": "Processed magnetic survey dataset (MagData msgpack)",
                 },
@@ -157,6 +158,7 @@ class MagEquivSource:
             process_version,
             storage_base,
             storage_kwargs,
+            mime_type="application/x-mag-grid-webxtile",
         )
         outputs["equiv_source_grid"] = (
             f"{storage_base}/processes/{process_id}/{process_version}"
